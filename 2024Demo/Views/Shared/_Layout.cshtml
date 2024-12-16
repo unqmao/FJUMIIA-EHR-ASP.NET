@@ -59,18 +59,32 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
+        function initializeTheme(){
+            const html = document.getElementById("htmlPage");
+            const checkbox = document.getElementById("checkbox");
+
+            const savedTheme = localStorage.getItem("theme")
+            html.setAttribute("data-bs-theme", savedTheme);
+            checkbox.checked = savedTheme === "dark";
+            console.log("checkbox.checked ", checkbox.checked)
+        }
+
         function toggleTheme() {
             const html = document.getElementById("htmlPage");
             const checkbox = document.getElementById("checkbox");
+
             checkbox.addEventListener("change", () => {
-                console.log("checkbox.checked", checkbox.checked)
-                isChecked = checkbox.checked;
-                html.setAttribute("data-bs-theme", checkbox.checked ? "dark" : "light");
+                const newTheme = checkbox.checked ? "dark" : "light"
+                console.log("newTheme ", newTheme)
+                html.setAttribute("data-bs-theme", newTheme);
+                localStorage.setItem("theme", newTheme)
             })
-
-            document.addEventListener("DOMContentLoaded", toggleTheme);
-
         }
+        document.addEventListener("DOMContentLoaded", ()=>{
+            initializeTheme();
+            toggleTheme();
+        });
+
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

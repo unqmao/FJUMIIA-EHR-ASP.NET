@@ -40,7 +40,7 @@ html {
     left: 2px;
     top: 2px;
     border-radius: 50%;
-    transition: transform 0/2s linear;
+    transition: transform 0.2s linear;
 }
 
 .checkbox:checked + .checkbox-label .ball {
