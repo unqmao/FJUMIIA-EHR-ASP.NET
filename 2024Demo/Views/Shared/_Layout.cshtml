@@ -33,13 +33,15 @@
                         </li>
                     </ul>
                 </div>
-                <div class="row justify-content-center mt-4" onclick="toggleTheme()">
+                <div class="justify-content-center" onclick="toggleTheme()">
                     <input type="checkbox" class="checkbox" id="checkbox" />
                     <label for="checkbox" class="checkbox-label">
+                        <span class="ball"></span>
+
                         <i class="fas fa-moon"></i>
                         <i class="fas fa-sun"></i>
                     </label>
-                        <span class="ball"></span>
+                       
                 </div>
             </div>
         </nav>
@@ -58,34 +60,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
-        function initializeTheme(){
-            const html = document.getElementById("htmlPage");
-            const checkbox = document.getElementById("checkbox");
-
-            const savedTheme = localStorage.getItem("theme")
-            html.setAttribute("data-bs-theme", savedTheme);
-            checkbox.checked = savedTheme === "dark";
-            console.log("checkbox.checked ", checkbox.checked)
-        }
-
-        function toggleTheme() {
-            const html = document.getElementById("htmlPage");
-            const checkbox = document.getElementById("checkbox");
-
-            checkbox.addEventListener("change", () => {
-                const newTheme = checkbox.checked ? "dark" : "light"
-                console.log("newTheme ", newTheme)
-                html.setAttribute("data-bs-theme", newTheme);
-                localStorage.setItem("theme", newTheme)
-            })
-        }
-        document.addEventListener("DOMContentLoaded", ()=>{
-            initializeTheme();
-            toggleTheme();
-        });
-
-    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

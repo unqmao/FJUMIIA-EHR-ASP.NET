@@ -1,4 +1,25 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function initializeTheme() {
+    const html = document.getElementById("htmlPage");
+    const checkbox = document.getElementById("checkbox");
 
-// Write your JavaScript code.
+    const savedTheme = localStorage.getItem("theme")
+    html.setAttribute("data-bs-theme", savedTheme);
+    checkbox.checked = savedTheme === "dark";
+    console.log("checkbox.checked ", checkbox.checked)
+}
+
+function toggleTheme() {
+    const html = document.getElementById("htmlPage");
+    const checkbox = document.getElementById("checkbox");
+
+    checkbox.addEventListener("change", () => {
+        const newTheme = checkbox.checked ? "dark" : "light"
+        console.log("newTheme ", newTheme)
+        html.setAttribute("data-bs-theme", newTheme);
+        localStorage.setItem("theme", newTheme)
+    })
+}
+document.addEventListener("DOMContentLoaded", () => {
+    initializeTheme();
+    toggleTheme();
+});

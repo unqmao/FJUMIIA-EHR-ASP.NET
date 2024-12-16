@@ -6,21 +6,21 @@ html {
 
 .checkbox {
     opacity: 0;
+    position: absolute;
     display:none !important;
 }
 
 .checkbox-label {
     background-color: #111;
-    width: 50%;
-    height: 2rem;
-    border-radius: 4rem;
-    padding: 0.2rem;
+    height: 26px;
+    width: 50px;
+    border-radius: 50px;
+    padding: 5px;
     position: relative;
-    padding: 0.4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    overflow: hidden;
+/*    overflow: hidden;*/
 }
 /*
 .fa-moon, .fa-sun {
@@ -35,8 +35,9 @@ html {
 
 .checkbox-label .ball {
     background-color: #fff;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 22px;
+    height: 22px;
+    position: absolute;
     left: 2px;
     top: 2px;
     border-radius: 50%;
@@ -44,7 +45,7 @@ html {
 }
 
 .checkbox:checked + .checkbox-label .ball {
-    transform: translateX(3rem);
+    transform: translateX(24px);
 }
 
 #checkbox {
