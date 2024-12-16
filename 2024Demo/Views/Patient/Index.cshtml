@@ -7,7 +7,6 @@
 <div id="patientForm">
     <div class="modal-header">
         <h1 class="display-4">病人資訊清單</h1>
-        <button type="button" class="btn btn-info" onclick="increaseFontSize()">放大文字</button>
     </div>
     <div class="modal-body">
 
@@ -121,41 +120,6 @@
 
 <script>
 
-    const dummyPatients = {
-        "1": {
-            FamilyName: "O'Sullivan",
-            GivenName: "Ronnie",
-            IdNo: "A123456789",
-            Birthday: "1975-12-05",
-            Gender: "M",
-            Telecom: "0912345678",
-            Address: "Wordsley, West Midlands, England"
-        },
-    }
-
-        function fillFakeData() {
-            const selectedValue = document.getElementById("dummyPatientSelect").value;
-            if (dummyPatients[selectedValue]) {
-                // Insert data into the form
-                const patient = dummyPatients[selectedValue];
-                document.getElementById("FamilyName").value = patient.FamilyName;
-                document.getElementById("GivenName").value = patient.GivenName;
-                document.getElementById("IdNo").value = patient.IdNo;
-                document.getElementById("Birthday").value = patient.Birthday;
-                document.getElementById("Gender").value = patient.Gender;
-                document.getElementById("Telecom").value = patient.Telecom;
-                document.getElementById("Address").value = patient.Address;
-            } else {
-                // Clear the form
-                document.getElementById("FamilyName").value = "";
-                document.getElementById("GivenName").value = "";
-                document.getElementById("IdNo").value = "";
-                document.getElementById("Birthday").value = "";
-                document.getElementById("Gender").value = "";
-                document.getElementById("Telecom").value = "09";
-                document.getElementById("Address").value = "";
-            }
-        }
 
     /* 查詢 */
     function Search() {
@@ -314,7 +278,27 @@
         };
 
         /* 刪除 */
-        function Delete(id){
-        };
+    function Delete(id) {
+        //console.log('Delete-id', id);
+        $.ajax({
+            url: '@Url.Content("~/Patient/Delete")',
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                patientId: id
+            },
+            success: function (result) {
+                if (result) {
+                    Search();
+                    alert("刪除成功");
+                    return;
+                }
+                alert(result.message);
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    };
 
 </script>

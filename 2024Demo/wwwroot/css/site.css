@@ -2,6 +2,55 @@ html {
   font-size: 14px;
 }
 
+/* Toggle Theme */
+
+.checkbox {
+    opacity: 0;
+    display:none !important;
+}
+
+.checkbox-label {
+    background-color: #111;
+    width: 50%;
+    height: 2rem;
+    border-radius: 4rem;
+    padding: 0.2rem;
+    position: relative;
+    padding: 0.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+/*
+.fa-moon, .fa-sun {
+    z-index: 1;
+    font-size: 1rem;
+}*/
+
+.fa-moon {color: #f1c40f}
+.fa-sun {
+    color: #f39c12
+}
+
+.checkbox-label .ball {
+    background-color: #fff;
+    width: 1.5rem;
+    height: 1.5rem;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    transition: transform 0/2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+    transform: translateX(3rem);
+}
+
+#checkbox {
+    display: none;
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;

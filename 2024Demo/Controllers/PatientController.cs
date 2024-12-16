@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
 using System.Data.SqlClient;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace _2024Demo.Controllers
 {
@@ -14,16 +15,17 @@ namespace _2024Demo.Controllers
         {
             var patientViewModel = new PatientViewModel();
             var genderCodeList = new List<SelectListItem>
-            {
-                new SelectListItem { Text = "男", Value = "M" },
-                new SelectListItem { Text = "女", Value = "F" }
-            };
+    {
+        new SelectListItem { Text = "男", Value = "M" },
+        new SelectListItem { Text = "女", Value = "F" }
+    };
 
             ViewBag.PatientViewModel = patientViewModel;
             ViewBag.GenderCodeList = genderCodeList;
 
             return View();
         }
+
 
         //新增
         //<param name="patientViewModel"> 病人資訊 ViewModel </param>
@@ -86,8 +88,35 @@ namespace _2024Demo.Controllers
         [HttpPost]
         public IActionResult Delete(long patientId)
         {
-            return Ok();
+            try
+            {
+                var patientDBModel = new PatientDBModel();
+
+                var patientDBModelList = QueryPatientList(patientId).Result;
+
+
+                if (patientDBModelList.Count() > 0)
+                {
+                    patientDBModel = patientDBModelList.First();
+                }
+
+                patientDBModel.Active = false;
+
+                var dbResult = UpdatePatient(patientDBModel);
+
+                if (dbResult.Result)
+                {
+                    return Ok(dbResult.Result);
+                }
+
+                return BadRequest(dbResult);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "Error", Error = ex.Message });
+            }
         }
+        
 
         #region sql
 
