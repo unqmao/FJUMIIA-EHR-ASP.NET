@@ -14,5 +14,9 @@
         public string Gender { get; set; }
         public DateTime Birthday { get; set; }
         public string Address { get; set; }
+        public string BloodType { get; set; }  // 新增
+        public string EmergencyContact { get; set; }  // 新增
+        public string MedicalHistory { get; set; }  // 新增
+        public string AllergyInfo { get; set; }
     }
 }
