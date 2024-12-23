@@ -1,8 +1,100 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "電子病歷系統首頁";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <div class="jumbotron text-center">
+        <h1 class="display-4">電子病歷系統</h1>
+        <p class="lead">歡迎使用電子病歷系統，請選擇以下操作。</p>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-search fa-fw"></i> 病人查詢</h5>
+                    <p class="card-text">快速查詢病人基本資料和病歷記錄。</p>
+                </div>
+                <div class="card-footer">
+                    <a href="/Patient/Index" class="btn btn-primary">前往查詢</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-user-plus fa-fw"></i> 新增病人</h5>
+                    <p class="card-text">建立新的病人資料和病歷記錄。</p>
+                </div>
+                <div class="card-footer">
+                    <a href="/Patient/Index" class="btn btn-success">前往新增</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-file-medical-alt fa-fw"></i> 病歷修改</h5>
+                    <p class="card-text">編輯和更新病人的病歷資料。</p>
+                </div>
+                <div class="card-footer">
+                    <a href="/Patient/Index" class="btn btn-secondary">前往編輯</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <i class="fas fa-chart-line fa-fw d-inline align-middle" style="font-style: normal;"> 數據統計</i>>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">病人總數： <span class="badge bg-primary">1200</span></li>
+                        <li class="list-group-item">今日新增： <span class="badge bg-success">20</span></li>
+                        <li class="list-group-item">男性比例： <span class="badge bg-secondary">55%</span></li>
+                        <li class="list-group-item">女性比例： <span class="badge bg-secondary">45%</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header bg-warning text-white">
+                    <i class="fas fa-bell fa-fw d-inline align-middle" style="font-style: normal;"> 待辦事項</i>
+
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">審核病人資料： <span class="badge bg-danger">5</span></li>
+                        <li class="list-group-item">回覆留言： <span class="badge bg-secondary">3</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <i class="fas fa-chart-line fa-fw d-inline align-middle" style="font-style: normal;"> 我們在哪裡</i>
+                </div>
+                <div class="card-body" id="map-card">
+                    <iframe class="map"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1807.4990578560348!2d121.4301048092969!3d25.034138013214616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a7e8507ba8dd%3A0xdf4b8bcb6330096f!2sCollege%20of%20Science%20%26%20Engineering!5e0!3m2!1sen!2stw!4v1728747622231!5m2!1sen!2stw"
+                            height="350" width="1050"
+                            style="max-width: 100%;"
+                            allowfullscreen="true"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    #map-card{
+        padding: 0;
+    }
+
+
+</style>

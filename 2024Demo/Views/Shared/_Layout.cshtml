@@ -3,14 +3,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - _2024Demo</title>
+    <link rel="icon" type="image/png" href="~/asserts/icon.png" sizes="32x32">
+    <title>@ViewData["Title"] -2024Demo</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/_2024Demo.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/2024Demo.styles.css" asp-append-version="true" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
+        .icon {
+            width: 12px;
+            height: 12px;
+        }
         .text-resize-buttons {
             position: fixed;
             top: 10px;
@@ -36,7 +41,10 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">_2024Demo</a>
+                <a class="d-flex align-items-center navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/asserts/icon.png" class="page-icon me-2" alt="icon" id="icon" style="width: 40px; height: 40px;">
+                    披薩醫院
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -71,13 +79,6 @@
         </main>
     </div>
 
-    <!-- 右上角縮放文字功能 -->
-    <div class="text-resize-buttons">
-        <button type="button" class="btn btn-primary" id="increaseFont">放大文字</button>
-        <button type="button" class="btn btn-secondary" id="decreaseFont">縮小文字</button>
-        <button type="button" class="btn btn-warning" id="resetFont">重置文字</button>
-    </div>
-
    
     <div class="google-translate-container">
         <div id="google_translate_element"></div>
@@ -85,7 +86,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - _2024Demo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - 2024Demo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -93,33 +94,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
    
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const resizableElements = document.querySelectorAll(".text-resizable");
-            let fontSize = 16;
-
-            document.getElementById("increaseFont").addEventListener("click", function () {
-                fontSize += 2;
-                resizableElements.forEach(el => {
-                    el.style.fontSize = fontSize + "px";
-                });
-            });
-
-            document.getElementById("decreaseFont").addEventListener("click", function () {
-                fontSize = Math.max(12, fontSize - 2);
-                resizableElements.forEach(el => {
-                    el.style.fontSize = fontSize + "px";
-                });
-            });
-
-            document.getElementById("resetFont").addEventListener("click", function () {
-                fontSize = 16;
-                resizableElements.forEach(el => {
-                    el.style.fontSize = fontSize + "px";
-                });
-            });
-        });
-    </script>
+   
 
     
     <script type="text/javascript">

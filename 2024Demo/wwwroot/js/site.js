@@ -25,7 +25,6 @@ function initializeFontSize() {
     const savedFontSize = localStorage.getItem("fontSize");
     const defaultFontSize = 16;
 
-    // 如果有儲存的文字大小，套用到元素
     const fontSize = savedFontSize ? parseInt(savedFontSize, 10) : defaultFontSize;
     resizableElements.forEach(el => {
         el.style.fontSize = fontSize + "px";
@@ -55,7 +54,7 @@ function setupFontResizeButtons() {
     });
 
     document.getElementById("resetFont").addEventListener("click", () => {
-        fontSize = 16; // 重置為預設文字大小
+        fontSize = 16; 
         resizableElements.forEach(el => {
             el.style.fontSize = fontSize + "px";
         });
@@ -66,5 +65,5 @@ function setupFontResizeButtons() {
 document.addEventListener("DOMContentLoaded", () => {
     initializeTheme();
     toggleTheme();
-    setupFontResizeButtons(); // 設定縮放文字功能
+    setupFontResizeButtons(); 
 });

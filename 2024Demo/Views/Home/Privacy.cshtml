@@ -1,6 +1,106 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "衛教資訊";
 }
-<h1>@ViewData["Title"]</h1>
+<div class="container my-5">
+    <!-- 頁首 -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">@ViewData["Title"]</h1>
+        <p class="text-muted">我們為您提供最新的健康知識與專業建議，幫助您維持健康生活。</p>
+    </div>
 
-<p>Use this page to detail your site's privacy policy.</p>
+    <!-- 圖文區塊 -->
+    <div class="row g-4">
+        <div class="col-md-6">
+            <img src="https://www.ctworld.org.tw/monthly/264/b01-1.jpg" class="img-fluid rounded" alt="衛教資訊圖片1">
+        </div>
+        <div class="col-md-6 d-flex align-items-center">
+            <div>
+                <h2 class="fw-semibold">健康飲食的重要性</h2>
+                <p>
+                    健康的飲食習慣是保持身體健康的基礎。多攝取蔬菜、水果和全穀類，避免高油高鹽的加工食品。
+                    定期的健康檢查能及早發現潛在問題，幫助您調整生活方式。
+                </p>
+                    <a href="https://event.commonhealth.com.tw/landseedhospital2023/index.html">
+                        <button class="btn btn-primary mt-2">
+                        了解更多
+                        </button>
+                    </a>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- 資訊卡片區塊 -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="心血管健康">
+                <div class="card-body">
+                    <h5 class="card-title">心血管健康</h5>
+                    <p class="card-text">
+                        維持心血管健康對於長壽非常重要。定期運動、健康飲食和良好的生活習慣可以有效降低心血管疾病的風險。
+                    </p>
+                    <button class="btn btn-outline-primary btn-sm">更多資訊</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="睡眠與壓力管理">
+                <div class="card-body">
+                    <h5 class="card-title">睡眠與壓力管理</h5>
+                    <p class="card-text">
+                        良好的睡眠有助於身心健康，適度管理壓力可以提高生活質量。每天保證7-8小時的高質量睡眠至關重要。
+                    </p>
+                    <button class="btn btn-outline-primary btn-sm">更多資訊</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="運動與活力">
+                <div class="card-body">
+                    <h5 class="card-title">運動與活力</h5>
+                    <p class="card-text">
+                        適度的運動有助於提升免疫力和保持體重。每天30分鐘的有氧運動，例如快走或騎自行車，是不錯的選擇。
+                    </p>
+                    <button class="btn btn-outline-primary btn-sm">更多資訊</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- FAQ 折疊區 -->
+    <div>
+        <h3 class="mb-4">常見問題 (FAQ)</h3>
+        <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqOneHeading">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="true" aria-controls="faqOne">
+                        我該如何開始健康飲食？
+                    </button>
+                </h2>
+                <div id="faqOne" class="accordion-collapse collapse show" aria-labelledby="faqOneHeading" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        從減少高糖、高鹽及加工食品開始，並嘗試每天增加新鮮蔬果的攝取量。小改變會帶來大影響！
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqTwoHeading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">
+                        如何有效管理壓力？
+                    </button>
+                </h2>
+                <div id="faqTwo" class="accordion-collapse collapse" aria-labelledby="faqTwoHeading" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        嘗試深呼吸練習、冥想或規律運動來釋放壓力。如果感到壓力過大，尋求專業心理諮詢師的協助。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

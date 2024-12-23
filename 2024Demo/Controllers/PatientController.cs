@@ -16,13 +16,21 @@ namespace _2024Demo.Controllers
         {
             var patientViewModel = new PatientViewModel();
             var genderCodeList = new List<SelectListItem>
-    {
-        new SelectListItem { Text = "男", Value = "M" },
-        new SelectListItem { Text = "女", Value = "F" }
-    };
+            {
+                new SelectListItem { Text = "男", Value = "M" },
+                new SelectListItem { Text = "女", Value = "F" }
+            };
+            var bloodTypeList = new List<SelectListItem>
+            { 
+                new() { Text = "A", Value = "A" },
+                new() { Text = "B", Value = "B" },
+                new() { Text = "AB", Value = "AB" },
+                new() { Text = "O", Value = "O" }
+            };
 
             ViewBag.PatientViewModel = patientViewModel;
             ViewBag.GenderCodeList = genderCodeList;
+            ViewBag.BloodTypeList = bloodTypeList;
 
             return View();
         }
@@ -169,82 +177,93 @@ namespace _2024Demo.Controllers
         {
             var result = new List<PatientDBModel>();
 
-            SqlConnection connection = new SqlConnection(ConnStr);
+            try
+            {              
+                SqlConnection connection = new(ConnStr);
 
-            var param = new List<SqlParameter>();
+                var param = new List<SqlParameter>();
 
-            var queryStr = @"SELECT * FROM [DB1].[dbo].[Patient] WHERE 1=1";
-            queryStr += " AND Active = @Active";
-            param.Add(new SqlParameter("@Active", true));
+                var queryStr = @"SELECT * FROM [DB1].[dbo].[Patient] WHERE 1=1";
+                queryStr += " AND Active = @Active";
+                param.Add(new SqlParameter("@Active", true));
 
-            if (patientId != null)
-            {
-                queryStr += " AND PatientId= @PatientId";
-                param.Add(new SqlParameter("@PatientId", patientId));
-            }
-
-            if (idNo != null)
-            {
-                queryStr += " AND IdNo= @IdNo ";
-                param.Add(new SqlParameter("@IdNo", idNo));
-            }
-
-            if (familyName != null)
-            {
-                queryStr += " AND FamilyName LIKE '%' + @FamilyName + '%'";
-                param.Add(new SqlParameter("@FamilyName", familyName));
-            }
-
-            if (givenName != null)
-            {
-                queryStr += " AND GivenName LIKE '%' + @GivenName + '%'";
-                param.Add(new SqlParameter("@GivenName", givenName));
-            }
-
-            SqlCommand command = new SqlCommand(queryStr, connection);
-
-            foreach (var p in param)
-            {
-                command.Parameters.Add(p);
-            }
-
-            connection.Open();
-
-            SqlDataReader reader = command.ExecuteReader();
-
-            if (reader.HasRows)
-            {
-                while (reader.Read())
+                if (patientId != null)
                 {
-                    var patient = new PatientDBModel
-                    {
-                        PatientId = reader.GetInt64(reader.GetOrdinal("PatientId")),
-                        IdNo = reader.GetString(reader.GetOrdinal("IdNo")),
-                        Active = reader.GetBoolean(reader.GetOrdinal("Active")),
-                        FamilyName = reader.GetString(reader.GetOrdinal("FamilyName")),
-                        GivenName = reader.GetString(reader.GetOrdinal("GivenName")),
-                        Telecom = reader.GetString(reader.GetOrdinal("Telecom")),
-                        Gender = reader.GetString(reader.GetOrdinal("Gender")),
-                        Birthday = reader.GetDateTime(reader.GetOrdinal("Birthday")),
-                        Address = reader.GetString(reader.GetOrdinal("Address")),
-                        BloodType = reader.GetString(reader.GetOrdinal("BloodType")),
-                        EmergencyContact = reader.GetString(reader.GetOrdinal("EmergencyContact")),
-                        EmergencyContactPhone = reader.GetString(reader.GetOrdinal("EmergencyContactPhone")),  // 新增
-                        MedicalHistory = reader.GetString(reader.GetOrdinal("MedicalHistory")),
-                        AllergyInfo = reader.GetString(reader.GetOrdinal("AllergyInfo"))
-                    };
-
-                    result.Add(patient);
+                    queryStr += " AND PatientId= @PatientId";
+                    param.Add(new SqlParameter("@PatientId", patientId));
                 }
+
+                if (idNo != null)
+                {
+                    queryStr += " AND IdNo= @IdNo ";
+                    param.Add(new SqlParameter("@IdNo", idNo));
+                }
+
+                if (familyName != null)
+                {
+                    queryStr += " AND FamilyName LIKE '%' + @FamilyName + '%'";
+                    param.Add(new SqlParameter("@FamilyName", familyName));
+                }
+
+                if (givenName != null)
+                {
+                    queryStr += " AND GivenName LIKE '%' + @GivenName + '%'";
+                    param.Add(new SqlParameter("@GivenName", givenName));
+                }
+
+                SqlCommand command = new SqlCommand(queryStr, connection);
+
+                foreach (var p in param)
+                {
+                    command.Parameters.Add(p);
+                }
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var patient = new PatientDBModel
+                        {
+                            PatientId = reader.GetInt64(reader.GetOrdinal("PatientId")),
+                            IdNo = reader.GetString(reader.GetOrdinal("IdNo")),
+                            Active = reader.GetBoolean(reader.GetOrdinal("Active")),
+                            FamilyName = reader.GetString(reader.GetOrdinal("FamilyName")),
+                            GivenName = reader.GetString(reader.GetOrdinal("GivenName")),
+                            Telecom = reader.GetString(reader.GetOrdinal("Telecom")),
+                            Gender = reader.GetString(reader.GetOrdinal("Gender")),
+                            Birthday = reader.GetDateTime(reader.GetOrdinal("Birthday")),
+                            Address = reader.GetString(reader.GetOrdinal("Address")),
+                            BloodType = reader.GetString(reader.GetOrdinal("BloodType")),
+                            EmergencyContact = reader.GetString(reader.GetOrdinal("EmergencyContact")),
+                            EmergencyContactPhone = reader.GetString(reader.GetOrdinal("EmergencyContactPhone")),  // 新增
+                            MedicalHistory = reader.GetString(reader.GetOrdinal("MedicalHistory")),
+                            AllergyInfo = reader.GetString(reader.GetOrdinal("AllergyInfo"))
+                        };
+
+                        result.Add(patient);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("查無資料");
+                }
+
+                connection.Close();
+
+                return Task.FromResult(result);
             }
-            else
+            catch (SqlException ex)
             {
-                Console.WriteLine("查無資料");
+                throw new Exception("查詢失敗", ex);
             }
-
-            connection.Close();
-
-            return Task.FromResult(result);
+            catch (Exception ex)
+            {
+                throw new Exception("未知錯誤", ex);    
+            }
         }
 
 
@@ -257,7 +276,7 @@ namespace _2024Demo.Controllers
                           GivenName = @GivenName, Telecom = @Telecom, Gender = @Gender, 
                           Birthday = @Birthday, Address = @Address, 
                           BloodType = @BloodType, EmergencyContact = @EmergencyContact, 
-                          EmergencyContactPhone = @EmergencyContactPhone,  // 新增
+                          EmergencyContactPhone = @EmergencyContactPhone,
                           MedicalHistory = @MedicalHistory, AllergyInfo = @AllergyInfo
                       WHERE PatientId = @PatientId";
             SqlCommand command = new SqlCommand(updateStr, connection);
