@@ -1,13 +1,12 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 /* Toggle Theme */
-
 .checkbox {
     opacity: 0;
     position: absolute;
-    display:none !important;
+    display: none !important;
 }
 
 .checkbox-label {
@@ -20,17 +19,14 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-/*    overflow: hidden;*/
 }
-/*
-.fa-moon, .fa-sun {
-    z-index: 1;
-    font-size: 1rem;
-}*/
 
-.fa-moon {color: #f1c40f}
+.fa-moon {
+    color: #f1c40f;
+}
+
 .fa-sun {
-    color: #f39c12
+    color: #f39c12;
 }
 
 .checkbox-label .ball {
@@ -53,20 +49,39 @@ html {
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
+
+/* 新增的文字縮放功能 */
+.text-resizable {
+    font-size: inherit; /* 讓元素繼承根字體大小 */
+}
+
+/* 用來隱藏某些元素 (例如按鈕的圓形按鈕) */
+.text-resize-buttons {
+    position: fixed;
+    top: 10px;
+    right: 10px; /* 調整位置避免與其他元素重疊 */
+    z-index: 1030;
+    display: flex;
+    gap: 10px;
+}
+
+    .text-resize-buttons button {
+        width: auto; /* 讓按鈕寬度自適應 */
+    }

@@ -22,5 +22,6 @@
         public string EmergencyContact { get; set; }  // 新增
         public string MedicalHistory { get; set; }  // 新增
         public string AllergyInfo { get; set; }
+        public string EmergencyContactPhone { get; set; }
     }
 }

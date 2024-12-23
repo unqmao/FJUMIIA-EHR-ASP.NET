@@ -117,7 +117,7 @@ namespace _2024Demo.Controllers
                 return Json(new { Status = "Error", Error = ex.Message });
             }
         }
-        
+
 
         #region sql
 
@@ -129,7 +129,7 @@ namespace _2024Demo.Controllers
 
             var insertStr = @"INSERT INTO DB1.dbo.Patient
                       VALUES (@IdNo, @Active, @FamilyName, @GivenName, @Telecom, @Gender, @Birthday, @Address, 
-                              @BloodType, @EmergencyContact, @MedicalHistory, @AllergyInfo)
+                              @BloodType, @EmergencyContact, @EmergencyContactPhone, @MedicalHistory, @AllergyInfo)
                       SELECT @InsertId = SCOPE_IDENTITY()";
 
             SqlCommand command = new SqlCommand(insertStr, connection);
@@ -146,10 +146,11 @@ namespace _2024Demo.Controllers
             command.Parameters.Add(new SqlParameter("@Gender", patient.Gender));
             command.Parameters.Add(new SqlParameter("@Birthday", patient.Birthday.ToString("yyyy/MM/dd")));
             command.Parameters.Add(new SqlParameter("@Address", patient.Address));
-            command.Parameters.Add(new SqlParameter("@BloodType", patient.BloodType));  // 新增
-            command.Parameters.Add(new SqlParameter("@EmergencyContact", patient.EmergencyContact));  // 新增
-            command.Parameters.Add(new SqlParameter("@MedicalHistory", patient.MedicalHistory));  // 新增
-            command.Parameters.Add(new SqlParameter("@AllergyInfo", patient.AllergyInfo));  // 新增
+            command.Parameters.Add(new SqlParameter("@BloodType", patient.BloodType));
+            command.Parameters.Add(new SqlParameter("@EmergencyContact", patient.EmergencyContact));
+            command.Parameters.Add(new SqlParameter("@EmergencyContactPhone", patient.EmergencyContactPhone));  // 新增
+            command.Parameters.Add(new SqlParameter("@MedicalHistory", patient.MedicalHistory));
+            command.Parameters.Add(new SqlParameter("@AllergyInfo", patient.AllergyInfo));
 
             connection.Open();
             command.ExecuteNonQuery();
@@ -162,6 +163,7 @@ namespace _2024Demo.Controllers
 
             return Task.FromResult(insertId);
         }
+
 
         public Task<List<PatientDBModel>> QueryPatientList(long? patientId = null, string? idNo = null, string? familyName = null, string? givenName = null)
         {
@@ -225,9 +227,10 @@ namespace _2024Demo.Controllers
                         Gender = reader.GetString(reader.GetOrdinal("Gender")),
                         Birthday = reader.GetDateTime(reader.GetOrdinal("Birthday")),
                         Address = reader.GetString(reader.GetOrdinal("Address")),
-                        BloodType = reader.GetString(reader.GetOrdinal("BloodType")),  
-                        EmergencyContact = reader.GetString(reader.GetOrdinal("EmergencyContact")),  
-                        MedicalHistory = reader.GetString(reader.GetOrdinal("MedicalHistory")),  
+                        BloodType = reader.GetString(reader.GetOrdinal("BloodType")),
+                        EmergencyContact = reader.GetString(reader.GetOrdinal("EmergencyContact")),
+                        EmergencyContactPhone = reader.GetString(reader.GetOrdinal("EmergencyContactPhone")),  // 新增
+                        MedicalHistory = reader.GetString(reader.GetOrdinal("MedicalHistory")),
                         AllergyInfo = reader.GetString(reader.GetOrdinal("AllergyInfo"))
                     };
 
@@ -244,18 +247,20 @@ namespace _2024Demo.Controllers
             return Task.FromResult(result);
         }
 
+
         public Task<bool> UpdatePatient(PatientDBModel patient)
         {
             bool result = false;
             SqlConnection connection = new SqlConnection(ConnStr);
-            var insertStr = @"UPDATE DB1.dbo.Patient
-                  SET IdNo = @IdNo, Active = @Active, FamilyName = @FamilyName, 
-                      GivenName = @GivenName, Telecom = @Telecom, Gender = @Gender, 
-                      Birthday = @Birthday, Address = @Address, 
-                      BloodType = @BloodType, EmergencyContact = @EmergencyContact, 
-                      MedicalHistory = @MedicalHistory, AllergyInfo = @AllergyInfo
-                  WHERE PatientId = @PatientId";
-            SqlCommand command = new SqlCommand(insertStr, connection);
+            var updateStr = @"UPDATE DB1.dbo.Patient
+                      SET IdNo = @IdNo, Active = @Active, FamilyName = @FamilyName, 
+                          GivenName = @GivenName, Telecom = @Telecom, Gender = @Gender, 
+                          Birthday = @Birthday, Address = @Address, 
+                          BloodType = @BloodType, EmergencyContact = @EmergencyContact, 
+                          EmergencyContactPhone = @EmergencyContactPhone,  // 新增
+                          MedicalHistory = @MedicalHistory, AllergyInfo = @AllergyInfo
+                      WHERE PatientId = @PatientId";
+            SqlCommand command = new SqlCommand(updateStr, connection);
 
             command.Parameters.Add(new SqlParameter("@PatientId", patient.PatientId));
             command.Parameters.Add(new SqlParameter("@IdNo", patient.IdNo));
@@ -266,10 +271,11 @@ namespace _2024Demo.Controllers
             command.Parameters.Add(new SqlParameter("@Gender", patient.Gender));
             command.Parameters.Add(new SqlParameter("@Birthday", patient.Birthday.ToString("yyyy/MM/dd")));
             command.Parameters.Add(new SqlParameter("@Address", patient.Address));
-            command.Parameters.Add(new SqlParameter("@BloodType", patient.BloodType));  // 新增
-            command.Parameters.Add(new SqlParameter("@EmergencyContact", patient.EmergencyContact));  // 新增
-            command.Parameters.Add(new SqlParameter("@MedicalHistory", patient.MedicalHistory));  // 新增
-            command.Parameters.Add(new SqlParameter("@AllergyInfo", patient.AllergyInfo));  // 新增
+            command.Parameters.Add(new SqlParameter("@BloodType", patient.BloodType));
+            command.Parameters.Add(new SqlParameter("@EmergencyContact", patient.EmergencyContact));
+            command.Parameters.Add(new SqlParameter("@EmergencyContactPhone", patient.EmergencyContactPhone));  // 新增
+            command.Parameters.Add(new SqlParameter("@MedicalHistory", patient.MedicalHistory));
+            command.Parameters.Add(new SqlParameter("@AllergyInfo", patient.AllergyInfo));
 
             connection.Open();
             var updateResult = command.ExecuteNonQuery();
@@ -281,6 +287,7 @@ namespace _2024Demo.Controllers
             }
             return Task.FromResult(result);
         }
+
         #endregion sql
 
         #region private
@@ -311,7 +318,9 @@ namespace _2024Demo.Controllers
                 BloodType = viewModel.BloodType,
                 EmergencyContact = viewModel.EmergencyContact,
                 MedicalHistory = viewModel.MedicalHistory,
-                AllergyInfo = viewModel.AllergyInfo
+                AllergyInfo = viewModel.AllergyInfo,
+                EmergencyContactPhone = viewModel.EmergencyContactPhone,
+
             };
         }
 
@@ -329,10 +338,11 @@ namespace _2024Demo.Controllers
                 Gender = dbModel.Gender,
                 Birthday = dbModel.Birthday,
                 Address = dbModel.Address,
-                BloodType = dbModel.BloodType,            // 新增
-                EmergencyContact = dbModel.EmergencyContact,  // 新增
-                MedicalHistory = dbModel.MedicalHistory,  // 新增
-                AllergyInfo = dbModel.AllergyInfo
+                BloodType = dbModel.BloodType,            
+                EmergencyContact = dbModel.EmergencyContact,  
+                MedicalHistory = dbModel.MedicalHistory,  
+                AllergyInfo = dbModel.AllergyInfo,
+                EmergencyContactPhone = dbModel.EmergencyContactPhone,
             };
         }
         #endregion Private

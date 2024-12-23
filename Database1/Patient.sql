@@ -11,6 +11,7 @@
 	[Address] NVARCHAR(100) NOT NULL,
 	[BloodType] VARCHAR(3), 
 	[EmergencyContact] NVARCHAR(50), 
+	[EmergencyContactPhone] VARCHAR(20),
 	[MedicalHistory] NVARCHAR(500), 
 	[AllergyInfo] NVARCHAR(500)
 );
